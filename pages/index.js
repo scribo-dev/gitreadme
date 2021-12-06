@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react';
+import Head from 'next/head';
 
 const navigation = [
   { name: 'Open-Source', href: 'https://github.com/scribo-dev/gitreadme' },
@@ -9,9 +10,16 @@ const navigation = [
   }
 ];
 
-export default function Example() {
+export default function Home() {
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
+      <Head>
+        <title>Git Readme - Documentation Website Builder</title>
+        <meta
+          name="description"
+          content="Open-Source Documentation website builder for GitHub repositories"
+        />
+      </Head>
       <div className="relative overflow-hidden">
         <div className="absolute inset-y-0 h-full w-full" aria-hidden="true">
           <div className="relative h-full">

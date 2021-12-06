@@ -1,0 +1,18 @@
+{
+  "sidebar": [
+    {
+      "type": "category",
+      "label": "Getting Starter",
+      "items": [
+        {
+          "label": "Installation",
+          "href": "installation"
+        },
+        {
+          "label": "Project Structure",
+          "href": "project-structure"
+        }
+      ]
+    }
+  ]
+}

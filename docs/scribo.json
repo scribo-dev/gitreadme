@@ -2,15 +2,59 @@
   "sidebar": [
     {
       "type": "category",
-      "label": "Getting Starter",
+      "label": "Getting Started",
       "items": [
         {
-          "label": "Installation",
-          "href": "installation"
+          "label": "GitHub Integration",
+          "href": "github-integration"
         },
         {
-          "label": "Project Structure",
-          "href": "project-structure"
+          "label": "Deployment",
+          "href": "deployment"
+        },
+        {
+          "label": "Pro plan",
+          "href": "pro-plan"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Pro Features",
+      "items": [
+        {
+          "label": "New Team",
+          "href": "getting-started"
+        },
+        {
+          "label": "Repository Configuration",
+          "href": "config"
+        },
+        {
+          "label": "Updating",
+          "href": "updating"
+        },
+        {
+          "label": "Docs",
+          "href": "docs"
+        },
+        {
+          "label": "Versioning",
+          "href": "versions"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Specifications",
+      "items": [
+        {
+          "label": "Overview",
+          "href": "api-overview"
+        },
+        {
+          "label": "OpenAPI/Swagger",
+          "href": "api-format"
         }
       ]
     }

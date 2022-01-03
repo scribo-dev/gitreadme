@@ -1,6 +1,7 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Popover, Transition } from '@headlessui/react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 const navigation = [
   { name: 'Open-Source', href: 'https://github.com/scribo-dev/gitreadme' },
@@ -11,6 +12,9 @@ const navigation = [
 ];
 
 export default function Home() {
+  const [repo, setRepo] = useState('https://github.com/twbs/bootstrap');
+  const router = useRouter();
+
   return (
     <div className="bg-gray-50 dark:bg-gray-900">
       <Head>
@@ -90,7 +94,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative pt-6 pb-16 sm:pb-24">
+        <div className="relative pt-6 pb-16 ">
           <Popover>
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <nav
@@ -218,8 +222,29 @@ export default function Home() {
               </h1>
               <p className="mt-3 max-w-md mx-auto text-base text-gray-500 dark:text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
                 With Git Readme you can create documentation websites for your
-                GitHub repositories in a few minutes
+                GitHub repositories with a click of a button
               </p>
+              <form
+                className="mt-12"
+                onSubmit={e => {
+                  e.preventDefault();
+
+                  router.push(repo.replace('github.com', 'gitread.me'));
+                }}
+              >
+                <input
+                  type="text"
+                  className="rounded border-gray-300 text-gray-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 w-96"
+                  value={repo}
+                  onChange={e => setRepo(e.target.value)}
+                />
+                <button className="rounded bg-blue-600 text-white px-3 py-2 ml-2 ring-1">
+                  Generate
+                </button>
+              </form>
+              <span className="text-xs text-gray-400">
+                Paste your repository GitHub url
+              </span>
             </div>
           </div>
         </div>

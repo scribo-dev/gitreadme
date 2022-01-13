@@ -4,7 +4,12 @@ import { ThemeProvider } from 'styled-components';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 
-import { getTeam, getRepos } from '../../utils/company';
+import {
+  getTeam,
+  getRepos,
+  getTeamInfo,
+  generateTheme
+} from '../../utils/company';
 import LoadingPage from '../../components/LoadingPage';
 import Header from '../../components/Header';
 import Banner from '../../components/Banner';
@@ -36,19 +41,10 @@ export default function Doc({ team, repos }) {
     <TeamProvider value={team}>
       <ThemeProvider theme={globalTheme.props}>
         <Global />
-        {team.teamId === 'scribo' && (
-          <Head>
-            <script
-              type="text/javascript"
-              dangerouslySetInnerHTML={{
-                __html: `window.$crisp=[];window.CRISP_WEBSITE_ID="d0405509-1a63-4b8c-8880-107b0539aca4";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`
-              }}
-            ></script>
-          </Head>
-        )}
+
         {headerTheme && (
           <ThemeProvider theme={headerTheme.props}>
-            <Header full={false} repos={repos} />
+            <Header repos={repos} />
           </ThemeProvider>
         )}
         {bannerTheme && (
@@ -89,14 +85,14 @@ export async function getStaticProps(context) {
     params: { team: selectedTeam }
   } = context;
 
-  let { team } = await getTeam(selectedTeam);
+  let teamInfo = await getTeamInfo(selectedTeam);
   let repos = await getRepos(selectedTeam);
-
+  let { team } = generateTheme(selectedTeam, teamInfo.avatar_url, null);
+  console.log(repos);
   return {
     props: {
       team,
       repos
-    },
-    revalidate: 60 * 1
+    }
   };
 }

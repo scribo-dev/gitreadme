@@ -61,7 +61,7 @@ function DocSidebarItem({
           <li key={href} className={index !== 0 ? `mt-6` : ''}>
             <h5
               onClick={collapsible ? handleItemClick : undefined}
-              className="prose px-3 uppercase tracking-wide font-semibold text-sm text-gray-900 dark:text-gray-200"
+              className="prose mb-2 px-3 uppercase tracking-wide font-semibold text-sm text-gray-900 dark:text-gray-200"
             >
               {label}
               {collapsible && (

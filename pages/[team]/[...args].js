@@ -148,7 +148,7 @@ export async function getStaticProps(context) {
 
   let fallbackProps = await githubFallback(selectedTeam, args);
 
-  return { props: fallbackProps, revalidate: 60 * 60 };
+  return { props: fallbackProps };
 }
 
 export default Doc;

@@ -6,6 +6,33 @@ export function getImageUrl(team, repoInfo, url) {
   return `https://raw.githubusercontent.com/${team.teamId}/${repoInfo.slug}/master/docs/${url}`;
 }
 
+function getAuthHeaders() {
+  let authHeader = {};
+  if (process.env.GITHUB_USER && process.env.GITHUB_TOKEN) {
+    authHeader = {
+      Authorization: `Basic ${Buffer.from(
+        process.env.GITHUB_USER + ':' + process.env.GITHUB_TOKEN
+      ).toString('base64')}`
+    };
+  }
+
+  return authHeader;
+}
+
+export async function getTeamInfo(selectedTeam) {
+  let teamRequest = await fetch(`https://api.github.com/orgs/${selectedTeam}`, {
+    headers: { ...getAuthHeaders() }
+  });
+
+  if (teamRequest.ok) {
+    let teamInfo = await teamRequest.json();
+
+    return teamInfo;
+  }
+
+  throw new Error('Team not found');
+}
+
 export async function githubFallback(selectedTeam, args) {
   let [repo, ...params] = args;
   let path = params.join('/');
@@ -13,15 +40,11 @@ export async function githubFallback(selectedTeam, args) {
 
   let logo = '';
   try {
-    let logoRequest = await fetch(
-      `https://api.github.com/orgs/${selectedTeam}`
-    );
-    if (logoRequest.ok) {
-      let logoInfo = await logoRequest.json();
-
-      logo = logoInfo.avatar_url;
-    }
-  } catch (e) {}
+    let teamInfo = await getTeamInfo(selectedTeam);
+    logo = teamInfo.avatar_url;
+  } catch (e) {
+    console.error(e);
+  }
 
   let info = {
     team: {
@@ -52,12 +75,14 @@ export async function githubFallback(selectedTeam, args) {
   let fileContent = await fileContentInfo.text();
 
   let sidebarInfoRequest = await fetch(
-    `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/master?recursive=1`
+    `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/master?recursive=1`,
+    { headers: { ...getAuthHeaders() } }
   );
 
   if (!sidebarInfoRequest.ok)
     sidebarInfoRequest = await fetch(
-      `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/main?recursive=1`
+      `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/main?recursive=1`,
+      { headers: { ...getAuthHeaders() } }
     );
 
   let sidebarInfo = await sidebarInfoRequest.json();

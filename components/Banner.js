@@ -27,11 +27,6 @@ const BannerImage = styled.div`
   width: 50%;
   height: 100%;
 
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
   @media screen and ${device.medium} {
     display: inherit;
   }
@@ -96,6 +91,7 @@ export function Banner() {
         <BannerImage>
           <ImageFallback
             objectFit="cover"
+            className="rounded-full w-[100px] h-[100px]"
             teamId={team.teamId}
             src={theme.image}
           />

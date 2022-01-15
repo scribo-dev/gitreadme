@@ -88,7 +88,7 @@ export async function getStaticProps(context) {
   let teamInfo = await getTeamInfo(selectedTeam);
   let repos = await getRepos(selectedTeam);
   let { team } = generateTheme(selectedTeam, teamInfo.avatar_url, null);
-  console.log(repos);
+
   return {
     props: {
       team,

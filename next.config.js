@@ -4,7 +4,7 @@ module.exports = phase => {
       CDN: 'https://dwu86ft0a6abz.cloudfront.net'
     },
     images: {
-      domains: ['dwu86ft0a6abz.cloudfront.net']
+      domains: ['dwu86ft0a6abz.cloudfront.net', 'avatars.githubusercontent.com']
     }
   };
 };

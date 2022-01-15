@@ -27,6 +27,7 @@
     "react-markdown": "^5.0.0",
     "react-syntax-highlighter": "^15.4.5",
     "redoc": "^2.0.0-rc.23",
+    "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^1.0.0",
     "slugify": "^1.4.6",
     "styled-components": "^5.3.3",

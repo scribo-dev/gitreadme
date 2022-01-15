@@ -9,7 +9,10 @@ export function Docs({ repos }) {
   const theme = useContext(ThemeContext);
 
   return (
-    <div className="dark:!bg-gray-900 text-gray-700 dark:text-gray-300 py-[32px] min-h-[500px]">
+    <div
+      id="docs"
+      className="dark:!bg-gray-900 text-gray-700 dark:text-gray-300 py-[32px] min-h-[500px]"
+    >
       <div id="docs" className="w-full max-w-8xl mx-auto px-2 sm:px-3 xl:px-5">
         {theme?.title && (
           <h3 className="text-3xl text-center dark:text-gray-100">

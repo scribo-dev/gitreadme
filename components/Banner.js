@@ -70,10 +70,14 @@ export function Banner() {
   return (
     <BannerBg id="banner" className="dark:!bg-gray-900 ">
       <BannerContainer>
-        <div className="w-full max-w-8xl mx-auto px-1 sm:px-3 xl:px-5 dark:!text-gray-300">
-          <h1>{theme.title}</h1>
-          <p>{theme.description}</p>
-          <div>
+        <div
+          className={`w-full max-w-[500px] mx-auto px-1 sm:px-3 xl:px-5 dark:!text-gray-300 ${
+            team.github ? 'text-center' : ''
+          }`}
+        >
+          <h1 className="dark:text-gray-100">{theme.title}</h1>
+          <p className="mt-2">{theme.description}</p>
+          <div className="mt-4">
             {theme.mainButtonLabel && (
               <MainBannerButton href={theme.mainButtonHref}>
                 {theme.mainButtonLabel}
@@ -87,6 +91,74 @@ export function Banner() {
           </div>
         </div>
       </BannerContainer>
+      {team.github && (
+        <>
+          <svg
+            className="absolute right-full transform translate-y-1/3 translate-x-1/4 md:translate-y-1/2 sm:translate-x-1/2 lg:translate-x-full"
+            width={404}
+            height={784}
+            fill="none"
+            viewBox="0 0 404 784"
+          >
+            <defs>
+              <pattern
+                id="e229dbec-10e9-49ee-8ec3-0286ca089edf"
+                x={0}
+                y={0}
+                width={20}
+                height={20}
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  x={0}
+                  y={0}
+                  width={4}
+                  height={4}
+                  className="text-gray-200 dark:text-gray-600"
+                  fill="currentColor"
+                />
+              </pattern>
+            </defs>
+            <rect
+              width={404}
+              height={784}
+              fill="url(#e229dbec-10e9-49ee-8ec3-0286ca089edf)"
+            />
+          </svg>
+          <svg
+            className="absolute left-full transform -translate-y-3/4 -translate-x-1/4 sm:-translate-x-1/2 md:-translate-y-1/2 lg:-translate-x-3/4"
+            width={404}
+            height={784}
+            fill="none"
+            viewBox="0 0 404 784"
+          >
+            <defs>
+              <pattern
+                id="d2a68204-c383-44b1-b99f-42ccff4e5365"
+                x={0}
+                y={0}
+                width={20}
+                height={20}
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  x={0}
+                  y={0}
+                  width={4}
+                  height={4}
+                  className="text-gray-200 dark:text-gray-600"
+                  fill="currentColor"
+                />
+              </pattern>
+            </defs>
+            <rect
+              width={404}
+              height={784}
+              fill="url(#d2a68204-c383-44b1-b99f-42ccff4e5365)"
+            />
+          </svg>
+        </>
+      )}
       {theme.image && (
         <BannerImage>
           <ImageFallback

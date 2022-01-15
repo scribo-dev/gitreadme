@@ -71,8 +71,8 @@ export function Banner() {
     <BannerBg id="banner" className="dark:!bg-gray-900 ">
       <BannerContainer>
         <div
-          className={`w-full max-w-[500px] mx-auto px-1 sm:px-3 xl:px-5 dark:!text-gray-300 ${
-            team.github ? 'text-center' : ''
+          className={`flex w-full max-w-8xl mx-auto px-1 sm:px-3 xl:px-5 dark:!text-gray-300 ${
+            team.github ? 'max-w-[500px] justify-center' : ''
           }`}
         >
           <h1 className="dark:text-gray-100">{theme.title}</h1>

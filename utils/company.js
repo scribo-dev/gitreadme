@@ -74,11 +74,10 @@ export async function getTeamInfo(selectedTeam) {
   throw new Error('Team not found');
 }
 
-export async function githubFallback(selectedTeam, args) {
-  let [repo, ...params] = args;
+export async function githubFallback(selectedTeam, repo, args = '') {
+  let [...params] = args;
   let path = params.join('/');
   let file = `${path || 'README'}.md`;
-
   let logo = '';
   try {
     let teamInfo = await getTeamInfo(selectedTeam);

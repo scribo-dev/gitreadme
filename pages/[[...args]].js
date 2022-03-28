@@ -1,25 +1,25 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
-import { TeamProvider } from '../../components/TeamContext';
+import { TeamProvider } from '../components/TeamContext';
 import { ThemeProvider } from 'styled-components';
 import { useRouter } from 'next/router';
 import gfm from 'remark-gfm';
 
-import Header from '../../components/Header';
-import Container from '../../components/ContainerFixed';
-import Footer from '../../components/Footer';
-import CustomDocSidebar from '../../components/CustomDocSidebar';
-import CodeBlock from '../../components/CodeBlock';
-import HeadAnchor from '../../components/HeadAnchor';
-import TOC from '../../components/TOC';
+import Header from '../components/Header';
+import Container from '../components/ContainerFixed';
+import Footer from '../components/Footer';
+import CustomDocSidebar from '../components/CustomDocSidebar';
+import CodeBlock from '../components/CodeBlock';
+import HeadAnchor from '../components/HeadAnchor';
+import TOC from '../components/TOC';
 
-import { useBreakpoint } from '../../utils/breakpoint';
-import { getImageUrl, githubFallback } from '../../utils/company';
-import LoadingPage from '../../components/LoadingPage';
-import ErrorPage from '../../components/ErrorPage';
+import { useBreakpoint } from '../utils/breakpoint';
+import { getImageUrl, githubFallback } from '../utils/company';
+import LoadingPage from '../components/LoadingPage';
+import ErrorPage from '../components/ErrorPage';
 
-import Global from '../../components/Global';
+import Global from '../components/Global';
 
 export function Doc({
   team,
@@ -143,10 +143,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const {
-    params: { team: selectedTeam, args }
+    params: { args }
   } = context;
-
-  let fallbackProps = await githubFallback(selectedTeam, args);
+  let selectedTeam = process.env.GITHUB_TEAM;
+  let repo = process.env.GITHUB_REPO;
+  let fallbackProps = await githubFallback(selectedTeam, repo, args);
 
   return { props: fallbackProps };
 }

@@ -40,18 +40,8 @@ function DocSidebarItem({
     setCollapsed(state => !state);
   });
 
-  const constructLink = (teamId, slug, version, href, repoPublic = true) => {
-    let params = [teamId];
-    let newHref = '/[team]/[...args]';
-    if (!repoPublic) {
-      params.push('private');
-      newHref = '/[team]/private/[...args]';
-    }
-    params.push(slug);
-    if (version && version !== 'latest') params.push(version);
-    if (href) params.push(href);
-
-    return { href: newHref, as: `/${params.join('/')}` };
+  const constructLink = href => {
+    return { href: '/[[...args]]', as: href };
   };
 
   switch (type) {
@@ -126,13 +116,7 @@ function DocSidebarItem({
       );
 
     case 'index':
-      let linkIndexProps = constructLink(
-        teamId,
-        slug,
-        version,
-        href,
-        repoPublic
-      );
+      let linkIndexProps = constructLink(href);
       return (
         <li
           className="menu__list-item"
@@ -160,10 +144,7 @@ function DocSidebarItem({
 
     case 'link':
     default:
-      let params = [teamId, slug];
-      if (version && version !== 'latest') params.push(version);
-      if (href) params.push(href);
-      let linkProps = constructLink(teamId, slug, version, href, repoPublic);
+      let linkProps = constructLink(href);
       return (
         <li key={linkProps.href} onClick={onNavigate}>
           <Link {...linkProps}>

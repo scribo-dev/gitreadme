@@ -90,21 +90,32 @@ export async function githubFallback(selectedTeam, repo, args = '') {
 
   let { team, repoInfo, params: newParams } = info;
   let fileContentInfo = await fetch(
-    `https://raw.githubusercontent.com/${selectedTeam}/${repo}/master/${file}`
+    `https://raw.githubusercontent.com/${selectedTeam}/${repo}/${process.env.GITHUB_BRANCH}/docs/${file}`
   );
 
   let fileContent = await fileContentInfo.text();
 
+  try {
+    let customPageConfigInfo = await fetch(
+      `https://raw.githubusercontent.com/${selectedTeam}/${repo}/${process.env.GITHUB_BRANCH}/docs/gitreadme.config.json`
+    );
+
+    let customPageConfig = await customPageConfigInfo.json();
+
+    return {
+      team,
+      fileContent,
+      pageConfig: customPageConfig,
+      file: 'README.md',
+      path: path,
+      repoInfo
+    };
+  } catch (e) {}
+
   let sidebarInfoRequest = await fetch(
-    `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/master?recursive=1`,
+    `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/${process.env.GITHUB_BRANCH}?recursive=1`,
     { headers: { ...getAuthHeaders() } }
   );
-
-  if (!sidebarInfoRequest.ok)
-    sidebarInfoRequest = await fetch(
-      `https://api.github.com/repos/${selectedTeam}/${repo}/git/trees/main?recursive=1`,
-      { headers: { ...getAuthHeaders() } }
-    );
 
   let sidebarInfo = await sidebarInfoRequest.json();
   let groups = [];
@@ -121,11 +132,13 @@ export async function githubFallback(selectedTeam, repo, args = '') {
     groups = sidebarInfo.tree
       .filter(info => info.path.includes('.md') && info.path !== 'README.md')
       .reduce((acc, info) => {
-        let [path] = info.path.split('/');
-        let [name, parentName] = info.path.split('/').reverse();
+        let relativePath = info.path.split('/');
+        let [path] = relativePath;
+        let [name, parentName] = relativePath.reverse();
         if (path === name) path = '';
 
         path = fixName(path.replace(/^\./, ''));
+
         if (!acc[path]) acc[path] = [];
 
         acc[path].push({

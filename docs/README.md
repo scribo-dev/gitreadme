@@ -1,6 +1,6 @@
 # Git Readme
 
-![Docs](assets/getting-started-home.png)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fscribo-dev%2Fgitreadme&env=GITHUB_TEAM,GITHUB_REPO,GITHUB_BRANCH,GITHUB_USER,GITHUB_TOKEN)
 
 Git Readme is a platform that helps teams publish and manage technical documentation. We know that documenting is hard, so we would like to simplify this process.
 
